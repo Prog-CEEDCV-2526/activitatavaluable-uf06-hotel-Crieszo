@@ -111,6 +111,24 @@ public class App {
      */
     public static void gestionarOpcio(int opcio) {
        //TODO:
+        switch(opcio){
+            case 1: 
+                reservarHabitacio();
+                break;
+            case 2:
+                alliberarHabitacio();
+                break;
+            case 3:
+                consultarDisponibilitat();
+                break;
+            case 4:
+                //llistarReservesPerTipus(int[] codis, String tipus);
+                break;
+            case 5:
+                obtindreReserva();
+                break;
+        }
+
     }
 
     /**
@@ -118,18 +136,42 @@ public class App {
      * serveis addicionals, càlcul del preu total i generació del codi de reserva.
      */
     public static void reservarHabitacio() {
+        String tipoHabitacion = "";
         System.out.println("\n===== RESERVAR HABITACIÓ =====");
-        //TODO:
+        System.out.println("1. Estándar - " + capacitatInicial.get(TIPUS_ESTANDARD) + " disponibles - " + preusHabitacions.get(TIPUS_ESTANDARD) +"e" );
+        System.out.println("2. Suite - " + capacitatInicial.get(TIPUS_SUITE) + " disponibles - " + preusHabitacions.get(TIPUS_SUITE) +"e" );
+        System.out.println("3. Deluxe - " + capacitatInicial.get(TIPUS_DELUXE) + " disponibles - " + preusHabitacions.get(TIPUS_DELUXE) +"e" );
         
+        // int habitacion = 0;
+        // do {
+            // System.out.print("Seleccione tipo de habitación:");
+            // habitacion = llegirEnter("Seleccione una habitación: ");
+            // tipoHabitacion = seleccionarTipusHabitacio(habitacion);
+            seleccionarTipusHabitacioDisponible();
+            // System.out.println("Seleccionada:" + tipoHabitacion);
+
+        // } while (habitacion < 4 && tipoHabitacion != "");
     }
 
     /**
      * Pregunta a l'usuari un tipus d'habitació en format numèric i
      * retorna el nom del tipus.
      */
-    public static String seleccionarTipusHabitacio() {
+    public static String seleccionarTipusHabitacio(int habitacion) {
         //TODO:
-        return null;
+        String tipoHabitacion = "";
+        switch(habitacion){
+            case 1: 
+                tipoHabitacion = "Estándar";
+                break;
+            case 2:
+                tipoHabitacion = "Suite";
+                break;
+            case 3:
+                tipoHabitacion = "Deluxe";
+                break;
+        }
+        return tipoHabitacion;
     }
 
     /**
@@ -140,7 +182,49 @@ public class App {
     public static String seleccionarTipusHabitacioDisponible() {
         System.out.println("\nTipus d'habitació disponibles:");
         //TODO:
-        return null;
+        System.out.println("1. Estándar - " + disponibilitatHabitacions.get(TIPUS_ESTANDARD) + " disponibles - " + preusHabitacions.get(TIPUS_ESTANDARD) +"e" );
+        System.out.println("2. Suite - " + disponibilitatHabitacions.get(TIPUS_SUITE) + " disponibles - " + preusHabitacions.get(TIPUS_SUITE) +"e" );
+        System.out.println("3. Deluxe - " + disponibilitatHabitacions.get(TIPUS_DELUXE) + " disponibles - " + preusHabitacions.get(TIPUS_DELUXE) +"e" );
+        int habitacion = 0;
+        int capacidad = 0;
+        String tipoHabitacion = "";
+        habitacion = llegirEnter("Seleccione una habitación: ");
+        // tipoHabitacion = seleccionarTipusHabitacio(habitacion);
+        // System.out.println("Seleccionada:" + tipoHabitacion);
+
+        switch(habitacion){
+            case 1: 
+                capacidad = disponibilitatHabitacions.get(TIPUS_ESTANDARD);
+                if(capacidad > 0 ){
+                    capacidad = capacidad -1;
+                    disponibilitatHabitacions.replace(TIPUS_ESTANDARD,capacidad);
+                    tipoHabitacion = seleccionarTipusHabitacio(habitacion);
+                } 
+                break;
+            case 2:
+                capacidad = disponibilitatHabitacions.get(TIPUS_SUITE);
+                if(capacidad > 0 ){
+                    capacidad = capacidad -1;
+                    disponibilitatHabitacions.replace(TIPUS_SUITE,CAPACITAT_SUITE -1);
+                    tipoHabitacion = seleccionarTipusHabitacio(habitacion);
+                } 
+                break;
+            case 3:
+                capacidad = disponibilitatHabitacions.get(TIPUS_DELUXE);
+                if(capacidad > 0 ){
+                    capacidad = capacidad -1;
+                    disponibilitatHabitacions.replace(TIPUS_DELUXE,CAPACITAT_DELUXE -1);
+                    tipoHabitacion = seleccionarTipusHabitacio(habitacion);
+                }
+                break;
+        }
+        
+        if(tipoHabitacion != ""){
+            return tipoHabitacion;
+        }else{
+            return null;
+        }
+        
     }
 
     /**
